@@ -40,8 +40,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1i4s3"]
-size = Vector2(10, 11)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d6b6l"]
+size = Vector2(8, 10)
 
 [node name="Slime" type="Node2D" unique_id=1748604799]
 script = ExtResource("1_d6b6l")
@@ -54,6 +54,14 @@ frame_progress = 0.059222404
 
 [node name="KillZone" parent="." unique_id=162030963 instance=ExtResource("2_d6b6l")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone" unique_id=1694495257]
-position = Vector2(0, -5.5)
-shape = SubResource("RectangleShape2D_1i4s3")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone" unique_id=859140511]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_d6b6l")
+
+[node name="RayCastRight" type="RayCast2D" parent="." unique_id=1509460410]
+position = Vector2(0, -5)
+target_position = Vector2(11, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="." unique_id=27386417]
+position = Vector2(0, -5)
+target_position = Vector2(-11, 0)
