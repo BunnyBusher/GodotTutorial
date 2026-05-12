@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="VR_Introduction"
-run/main_scene="uid://clrw2qyob8u3i"
+run/main_scene="uid://bhgx3yy0frusr"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -24,8 +24,3 @@ config/icon="res://icon.svg"
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-
-[xr]
-
-openxr/enabled=true
-shaders/enabled=true
