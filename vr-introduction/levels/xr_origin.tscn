@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bq6yqhq8ap0rp"]
+
+[ext_resource type="PackedScene" uid="uid://dhaqth6q5yw4n" path="res://addons/godot-xr-tools/hands/model/hand_l.gltf" id="1_3m37x"]
+[ext_resource type="PackedScene" uid="uid://ds1t8vc0kxoeo" path="res://addons/godot-xr-tools/hands/model/hand_r.gltf" id="2_j6vsv"]
+
+[node name="XROrigin3D" type="XROrigin3D" unique_id=1381577063]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="." unique_id=1827132807]
+
+[node name="Lefthand" type="XRController3D" parent="." unique_id=100509716]
+tracker = &"left_hand"
+
+[node name="hand_l" parent="Lefthand" unique_id=516186808 instance=ExtResource("1_3m37x")]
+
+[node name="RightHand" type="XRController3D" parent="." unique_id=1472842436]
+tracker = &"right_hand"
+
+[node name="hand_r" parent="RightHand" unique_id=476108289 instance=ExtResource("2_j6vsv")]
