@@ -1,7 +1,7 @@
 extends Node
 
 @export var tools_to_display : SSD1306NodeFacadeLite
-@export var frequency : float = 1
+@export var frequency : float = .25
 
 var current_bool_array : Array[bool]
 var next_bool_array : Array[bool]
@@ -9,6 +9,17 @@ var chrono : float = 0
 
 const map_size: Vector2i = Vector2i(128,64)
 const size: int = map_size.x * map_size.y
+
+const NEIGHBOURS = [
+Vector2i(-1, -1),
+Vector2i(0, -1),
+Vector2i(1, -1),
+Vector2i(-1, 0),
+Vector2i(1, 0),
+Vector2i(-1, 1),
+Vector2i(0, 1),
+Vector2i(1, 1),
+]
 
 
 
@@ -19,12 +30,15 @@ func _init() -> void:
 	next_bool_array.fill(false)
 	
 func _ready() -> void:
-	var pos = _get_index_from_2d_coordinates(Vector2i(64,10))
-	current_bool_array[pos] = true
-	pos = _get_index_from_2d_coordinates(Vector2i(64,11))
-	current_bool_array[pos] = true
-	pos = _get_index_from_2d_coordinates(Vector2i(64,12))
-	current_bool_array[pos] = true
+	#var pos = _get_index_from_2d_coordinates(Vector2i(64,10))
+	#current_bool_array[pos] = true
+	#pos = _get_index_from_2d_coordinates(Vector2i(64,11))
+	#current_bool_array[pos] = true
+	#pos = _get_index_from_2d_coordinates(Vector2i(64,12))
+	#current_bool_array[pos] = true
+	
+	spawn_glider(32,16)
+	
 	tools_to_display.set_value_with_1d_array_and_draw(current_bool_array)
 
 func _process(delta: float) -> void:
@@ -50,96 +64,27 @@ func _get_map_position(index : int) -> Vector2i:
 	return Vector2i(pos_x,pos_y)
 	
 func _process_game_of_life():
-	
+
 	
 	for cell in range(size):
 		var cellCoord : Vector2i = Vector2i(0,0)
 		cellCoord = _get_map_position(cell)
 		
 		var aliveNeighbours : int = 0
-		var index : int = 0
-		var neighboursCoord : Vector2i = cellCoord
 		
-		for nb in range(8):
-			neighboursCoord = cellCoord
-			
-			match nb:
-				0:
-					if cellCoord.y == 0 or cellCoord.x == 0:
-						continue
-					
-					neighboursCoord.x -= 1
-					neighboursCoord.y -= 1
-					index = _get_index_from_2d_coordinates(neighboursCoord)
-					if current_bool_array[index] == true:
-						aliveNeighbours += 1
-				
-				1:
-					if cellCoord.y == 0:
-						continue
-					
-					neighboursCoord.y -= 1
-					index = _get_index_from_2d_coordinates(neighboursCoord)
-					
-					if current_bool_array[index] == true:
-						aliveNeighbours += 1
-				
-				2:
-					if cellCoord.y == 0 or cellCoord.x == map_size.x - 1:
-						continue
-					
-					neighboursCoord.x += 1
-					neighboursCoord.y -= 1
-					index = _get_index_from_2d_coordinates(neighboursCoord)
-					if current_bool_array[index] == true:
-						aliveNeighbours += 1
-				
-				3:
-					if cellCoord.x == 0:
-						continue
-					
-					neighboursCoord.x -= 1
-					index = _get_index_from_2d_coordinates(neighboursCoord)
-					if current_bool_array[index] == true:
-						aliveNeighbours += 1
-				
-				4:
-					if cellCoord.x == map_size.x - 1:
-						continue
-						
-					neighboursCoord.x += 1
-					index = _get_index_from_2d_coordinates(neighboursCoord)
-					if current_bool_array[index] == true:
-						aliveNeighbours += 1
-					
-				5:
-					if cellCoord.y == map_size.y -1 or cellCoord.x == 0:
-						continue
-					
-					neighboursCoord.x -= 1
-					neighboursCoord.y += 1
-					index = _get_index_from_2d_coordinates(neighboursCoord)
-					if current_bool_array[index] == true:
-						aliveNeighbours += 1
-					
-				6:
-					if cellCoord.y == map_size.y - 1:
-						continue
-				
-					neighboursCoord.y += 1
-					index = _get_index_from_2d_coordinates(neighboursCoord)
-					if current_bool_array[index] == true:
-						aliveNeighbours += 1
-				
-				7:
-					if cellCoord.y == map_size.y - 1 or cellCoord.x == map_size.x - 1:
-						continue
-					
-					neighboursCoord.x += 1
-					neighboursCoord.y += 1
-					index = _get_index_from_2d_coordinates(neighboursCoord)
-					if current_bool_array[index] == true:
-						aliveNeighbours += 1
+		for offset in NEIGHBOURS:
+			var n = cellCoord + offset
+	
+			if n.x < 0 or n.x >= map_size.x:
+				continue
+		
+			if n.y < 0 or n.y >= map_size.y:
+				continue
+	
+			var idx = _get_index_from_2d_coordinates(n)
+	
+			if current_bool_array[idx]:
+				aliveNeighbours += 1
 			
 			#test rule of life
 		if current_bool_array[cell] == true:
@@ -159,4 +104,16 @@ func _process_game_of_life():
 			#rule 4
 		elif current_bool_array[cell] == false and aliveNeighbours == 3:
 			next_bool_array[cell] = true
-		
+
+func spawn_glider(x: int, y: int) -> void:
+	var coords = [
+		Vector2i(x+1, y),
+		Vector2i(x+2, y+1),
+		Vector2i(x, y+2),
+		Vector2i(x+1, y+2),
+		Vector2i(x+2, y+2),
+	]
+
+	for c in coords:
+		if c.x >= 0 and c.x < map_size.x and c.y >= 0 and c.y < map_size.y:
+			current_bool_array[_get_index_from_2d_coordinates(c)] = true
