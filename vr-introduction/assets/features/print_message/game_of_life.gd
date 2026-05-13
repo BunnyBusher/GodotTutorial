@@ -1,7 +1,11 @@
 extends Node
 
+
+signal on_draw(array : Array[bool])
+
 @export var tools_to_display : SSD1306NodeFacadeLite
 @export var frequency : float = .25
+
 
 var current_bool_array : Array[bool]
 var next_bool_array : Array[bool]
@@ -30,14 +34,19 @@ func _init() -> void:
 	next_bool_array.fill(false)
 	
 func _ready() -> void:
-	#var pos = _get_index_from_2d_coordinates(Vector2i(64,10))
-	#current_bool_array[pos] = true
-	#pos = _get_index_from_2d_coordinates(Vector2i(64,11))
-	#current_bool_array[pos] = true
-	#pos = _get_index_from_2d_coordinates(Vector2i(64,12))
-	#current_bool_array[pos] = true
+	#spawn_glider(32,16)
+	#spawn_pulsor(96,16)
+	#spawn_pulsor(96,32)
+	#spawn_pulsor(96,48)
+#
+	#spawn_pulsor(32,16)
+	#spawn_pulsor(32,32)
+	#spawn_pulsor(32,48)
+	#randomize_grid(.3)
 	
-	spawn_glider(32,16)
+	spawn_eye(-20,-15)
+	spawn_eye(36,-15)
+	
 	
 	tools_to_display.set_value_with_1d_array_and_draw(current_bool_array)
 
@@ -49,6 +58,7 @@ func _process(delta: float) -> void:
 		current_bool_array = next_bool_array.duplicate()
 		next_bool_array.fill(false)
 		tools_to_display.set_value_with_1d_array_and_draw(current_bool_array)
+		on_draw.emit(current_bool_array)
 	
 
 func _on_ssd_1306_bool_array_to_texture_ready() -> void:
@@ -106,14 +116,70 @@ func _process_game_of_life():
 			next_bool_array[cell] = true
 
 func spawn_glider(x: int, y: int) -> void:
-	var coords = [
+	var coords : Array[Vector2i] = [
 		Vector2i(x+1, y),
 		Vector2i(x+2, y+1),
 		Vector2i(x, y+2),
 		Vector2i(x+1, y+2),
 		Vector2i(x+2, y+2),
 	]
+	draw_patterns(coords)
 
-	for c in coords:
-		if c.x >= 0 and c.x < map_size.x and c.y >= 0 and c.y < map_size.y:
-			current_bool_array[_get_index_from_2d_coordinates(c)] = true
+			
+func spawn_pulsor_vertical(x: int, y: int)-> void:
+	var coords : Array[Vector2i] = [
+		Vector2i(x,y-1),
+		Vector2i(x,y),
+		Vector2i(x,y+1),
+	]
+	draw_patterns(coords)
+	
+func spawn_pulsor_horizontal(x: int, y: int)-> void:
+	var coords : Array[Vector2i] = [
+		Vector2i(x-1,y),
+		Vector2i(x,y),
+		Vector2i(x+1,y),
+	]
+	draw_patterns(coords)
+	
+	
+func draw_patterns(coords: Array[Vector2i]) -> void:
+		for c in coords:
+			if c.x >= 0 and c.x < map_size.x and c.y >= 0 and c.y < map_size.y:
+				current_bool_array[_get_index_from_2d_coordinates(c)] = true
+				
+func randomize_grid(chance_alive: float = 0.25) -> void:
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+
+	for i in range(size):
+		current_bool_array[i] = rng.randf() < chance_alive
+		
+func spawn_eye(x: int, y: int) -> void:
+	# top horizontal
+	spawn_pulsor_horizontal(x + 51, y + 29)
+	spawn_pulsor_horizontal(x + 57, y + 29)
+
+	# upper vertical cluster
+	spawn_pulsor_vertical(x + 48, y + 32)
+	spawn_pulsor_vertical(x + 53, y + 32)
+	spawn_pulsor_vertical(x + 55, y + 32)
+	spawn_pulsor_vertical(x + 60, y + 32)
+
+	# mid horizontal
+	spawn_pulsor_horizontal(x + 51, y + 34)
+	spawn_pulsor_horizontal(x + 57, y + 34)
+
+	# lower horizontal
+	spawn_pulsor_horizontal(x + 51, y + 36)
+	spawn_pulsor_horizontal(x + 57, y + 36)
+
+	# lower vertical cluster
+	spawn_pulsor_vertical(x + 48, y + 38)
+	spawn_pulsor_vertical(x + 53, y + 38)
+	spawn_pulsor_vertical(x + 55, y + 38)
+	spawn_pulsor_vertical(x + 60, y + 38)
+
+	# bottom horizontal
+	spawn_pulsor_horizontal(x + 51, y + 41)
+	spawn_pulsor_horizontal(x + 57, y + 41)

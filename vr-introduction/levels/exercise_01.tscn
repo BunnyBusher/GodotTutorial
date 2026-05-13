@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bjtnmpj5am3fo" path="res://assets/features/print_message/game_of_life.gd" id="1_otyo4"]
 [ext_resource type="PackedScene" uid="uid://bh81u2g7tk0cr" path="res://addons/2026_04_27_gdp_oled_128x64/scene/element/display_ssd_128x64_2d_rect_lite.tscn" id="2_ny2ea"]
+[ext_resource type="Script" uid="uid://cvjghelprvg1u" path="res://addons/2026_04_27_gdp_oled_128x64/script/network/udp/ssd_1306_udp_send_to_target.gd" id="3_ny2ea"]
 
 [node name="exercise01" type="Node" unique_id=1218725920]
 
@@ -11,6 +12,22 @@ tools_to_display = NodePath("../DisplaySsd128x64dRectLite")
 
 [node name="DisplaySsd128x64dRectLite" parent="." unique_id=769472649 instance=ExtResource("2_ny2ea")]
 
+[node name="SSD1306UdpSendToSingleTarget" type="Node" parent="." unique_id=1252268829]
+script = ExtResource("3_ny2ea")
+target_ip = "192.168.137.163"
+send_interval_ms = 10
+metadata/_custom_type_script = "uid://cvjghelprvg1u"
+
+[node name="SSD1306UdpSendToSingleTarget2" type="Node" parent="." unique_id=673593463]
+script = ExtResource("3_ny2ea")
+target_ip = "10.32.23.215"
+send_interval_ms = 10
+metadata/_custom_type_script = "uid://cvjghelprvg1u"
+
+[connection signal="on_draw" from="script" to="SSD1306UdpSendToSingleTarget" method="set_next_push_byte_as_array_bool"]
+[connection signal="on_draw" from="script" to="SSD1306UdpSendToSingleTarget2" method="set_next_push_byte_as_array_bool"]
+[connection signal="on_draw" from="script" to="SSD1306UdpSendToSingleTarget" method="send_byte_in_memory" unbinds=1]
+[connection signal="on_draw" from="script" to="SSD1306UdpSendToSingleTarget2" method="send_byte_in_memory" unbinds=1]
 [connection signal="ready" from="script" to="script" method="_on_ready"]
 [connection signal="ready" from="DisplaySsd128x64dRectLite/Node/SSD1306BoolArrayToTexture" to="script" method="_on_ssd_1306_bool_array_to_texture_ready"]
 
