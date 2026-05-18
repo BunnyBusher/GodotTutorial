@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://ck2o00yl4ha15"]
+
+[ext_resource type="Script" uid="uid://ce5qsuf68efu3" path="res://_/Feature/XRSession.gd" id="1_xxej6"]
+[ext_resource type="PackedScene" uid="uid://bbj47jtmb3cu4" path="res://_/Levels/input_manager.tscn" id="2_1j2ya"]
+[ext_resource type="Script" uid="uid://dhofx5f1a4k8t" path="res://_/Feature/xr_player_movement.gd" id="3_6r06j"]
+[ext_resource type="PackedScene" uid="uid://bnx4hithcij6y" path="res://addons/godot-xr-tools/hands/model/Hand_Glove_low_L.gltf" id="3_n0eod"]
+[ext_resource type="PackedScene" uid="uid://csgsp0wuw8ucy" path="res://addons/godot-xr-tools/hands/model/Hand_Glove_low_R.gltf" id="4_6r06j"]
+[ext_resource type="PackedScene" uid="uid://cx5fm45hr411i" path="res://_/Levels/ground.tscn" id="4_vv1g2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xxej6"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_y5hu6"]
+sky_material = SubResource("ProceduralSkyMaterial_xxej6")
+
+[sub_resource type="Environment" id="Environment_1j2ya"]
+background_mode = 2
+sky = SubResource("Sky_y5hu6")
+tonemap_mode = 2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ybhsj"]
+
+[node name="Node3D" type="Node3D" unique_id=1109199117]
+script = ExtResource("1_xxej6")
+
+[node name="InputManager" parent="." unique_id=374932707 instance=ExtResource("2_1j2ya")]
+
+[node name="InputXr" parent="InputManager" index="0" unique_id=244394724 node_paths=PackedStringArray("left_hand", "right_hand")]
+left_hand = NodePath("../../CharacterBody3D/XROrigin3D/LeftHand")
+right_hand = NodePath("../../CharacterBody3D/XROrigin3D/RightHand")
+
+[node name="InputKeyboard" parent="InputManager" index="1" unique_id=2073353538]
+is_enabled = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=7501566]
+environment = SubResource("Environment_1j2ya")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1769972077]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1578021480 node_paths=PackedStringArray("_camera")]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 0.9935698, 0)
+script = ExtResource("3_6r06j")
+_camera = NodePath("XROrigin3D/XRCamera3D")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="CharacterBody3D" unique_id=192403802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9935699, 0)
+
+[node name="XRCamera3D" type="XRCamera3D" parent="CharacterBody3D/XROrigin3D" unique_id=1234992917]
+
+[node name="LeftHand" type="XRController3D" parent="CharacterBody3D/XROrigin3D" unique_id=1167061695]
+transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999998, 0, 0.9935698, 0)
+tracker = &"left_hand"
+
+[node name="Hand_Glove_low_L" parent="CharacterBody3D/XROrigin3D/LeftHand" unique_id=1048978420 instance=ExtResource("3_n0eod")]
+
+[node name="RightHand" type="XRController3D" parent="CharacterBody3D/XROrigin3D" unique_id=243740336]
+transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999998, 0, 0.9935698, 0)
+tracker = &"right_hand"
+
+[node name="Hand_Glove_low_R" parent="CharacterBody3D/XROrigin3D/RightHand" unique_id=727034325 instance=ExtResource("4_6r06j")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=426162689]
+shape = SubResource("CapsuleShape3D_ybhsj")
+
+[node name="Ground" parent="." unique_id=482588469 instance=ExtResource("4_vv1g2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[connection signal="on_right_hand_joystick" from="InputManager/InputXr" to="CharacterBody3D" method="_get_right_axis"]
+
+[editable path="InputManager"]

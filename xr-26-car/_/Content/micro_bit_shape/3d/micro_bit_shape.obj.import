@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b8j266buh42i5"
+path="res://.godot/imported/micro_bit_shape.obj-ba2b858aac9f783ff67e3ef33441fe07.mesh"
+
+[deps]
+
+files=["res://.godot/imported/micro_bit_shape.obj-ba2b858aac9f783ff67e3ef33441fe07.mesh"]
+
+source_file="res://_/Content/micro_bit_shape/3d/micro_bit_shape.obj"
+dest_files=["res://.godot/imported/micro_bit_shape.obj-ba2b858aac9f783ff67e3ef33441fe07.mesh", "res://.godot/imported/micro_bit_shape.obj-ba2b858aac9f783ff67e3ef33441fe07.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

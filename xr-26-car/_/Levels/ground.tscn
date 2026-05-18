@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cx5fm45hr411i"]
+
+[ext_resource type="Texture2D" uid="uid://cyq4gwg8vl48i" path="res://_/Content/1601.m10.i307.n008.F.c05.205439527 Vector grid marking for user HUD interface.jpg" id="1_a3kkq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gr6f2"]
+albedo_color = Color(0.37, 0.37, 0.37, 1)
+albedo_texture = ExtResource("1_a3kkq")
+
+[sub_resource type="BoxMesh" id="BoxMesh_gr6f2"]
+material = SubResource("StandardMaterial3D_gr6f2")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a3kkq"]
+
+[node name="Ground" type="Node3D" unique_id=482588469]
+
+[node name="size" type="Node3D" parent="." unique_id=1203564765]
+transform = Transform3D(10, 0, 0, 0, 0.1, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="size" unique_id=1808810689]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="size/StaticBody3D" unique_id=2089941281]
+mesh = SubResource("BoxMesh_gr6f2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="size/StaticBody3D" unique_id=448353311]
+shape = SubResource("BoxShape3D_a3kkq")

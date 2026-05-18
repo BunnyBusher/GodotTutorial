@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://d1lhq4o6f77h4"]
+
+[ext_resource type="Script" uid="uid://dgh0jurn7grs0" path="res://_/Feature/car_movement.gd" id="1_ibsuk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ibsuk"]
+albedo_color = Color(0.15759787, 0.4981954, 0.29214275, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dsdww"]
+material = SubResource("StandardMaterial3D_ibsuk")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mxun2"]
+
+[node name="Car" type="Node3D" unique_id=2119547690]
+
+[node name="Size" type="Node3D" parent="." unique_id=651418622]
+transform = Transform3D(0.066, 0, 0, 0, 0.05, 0, 0, 0, 0.094, 0, 0, 0)
+
+[node name="CharacterController" type="CharacterBody3D" parent="Size" unique_id=1982886184]
+script = ExtResource("1_ibsuk")
+
+[node name="Model" type="MeshInstance3D" parent="Size/CharacterController" unique_id=1748669417]
+mesh = SubResource("BoxMesh_dsdww")
+
+[node name="Collider" type="CollisionShape3D" parent="Size/CharacterController" unique_id=506780910]
+shape = SubResource("BoxShape3D_mxun2")

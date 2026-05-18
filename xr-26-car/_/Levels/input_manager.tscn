@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bbj47jtmb3cu4"]
+
+[ext_resource type="Script" uid="uid://dmp6jf5lwrn8n" path="res://_/Feature/input_manager.gd" id="1_5b525"]
+[ext_resource type="Script" uid="uid://cnaob4y7vc741" path="res://_/Feature/input_xr.gd" id="1_vrbcr"]
+
+[node name="InputManager" type="Node" unique_id=374932707]
+
+[node name="InputXr" type="Node" parent="." unique_id=244394724]
+script = ExtResource("1_vrbcr")
+
+[node name="InputKeyboard" type="Node" parent="." unique_id=2073353538]
+script = ExtResource("1_5b525")
