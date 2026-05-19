@@ -4,18 +4,36 @@ extends Node
 @export var right_hand : XRController3D
 
 signal on_right_hand_joystick(joystick:Vector2)
+signal on_right_hand_joystick_vertical_value(vertical: float)
 signal on_left_hand_joystick(joystick:Vector2)
+signal on_left_hand_joystick_vertical_value(vertical: float)
 signal on_x_button_pressed(is_pressed:bool)
 
 
 func _process(delta: float) -> void:
 	var right_joystick : Vector2 = get_right_joystick_2d_value()
+	var right_joystick_vertical_value : float
+	
+	if abs(right_joystick.y) > 0.1:
+		right_joystick_vertical_value = right_joystick.y
+	else:
+		right_joystick_vertical_value = 0
+		
 	var left_joystick : Vector2 = get_left_joystick_2d_value()
+	var left_joystick_vertical_value : float = left_joystick.y
+	
+	if abs(left_joystick.y) > 0.1:
+		left_joystick_vertical_value = left_joystick.y
+	else:
+		left_joystick_vertical_value = 0
+	
 	var x_button : bool = get_a_button_trigger()
 	
 	on_right_hand_joystick.emit(right_joystick)
+	on_right_hand_joystick_vertical_value.emit(right_joystick_vertical_value)
 	on_left_hand_joystick.emit(left_joystick)
-	on_x_button_pressed.emit(x_button)
+	on_left_hand_joystick_vertical_value.emit(left_joystick_vertical_value)
+	#on_x_button_pressed.emit(x_button)
 	
 	
 func get_right_joystick_2d_value() -> Vector2:

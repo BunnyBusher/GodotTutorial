@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b7cm0x7a8vr1l"]
+
+[ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="1_wbmcq"]
+[ext_resource type="PackedScene" uid="uid://da2qgxxwwitl6" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" id="2_hwqd5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hwqd5"]
+resource_local_to_scene = true
+radius = 0.05
+
+[node name="MicroBitSnapZone" unique_id=745712636 instance=ExtResource("1_wbmcq")]
+grab_distance = 0.05
+snap_require = "MicroBit"
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("SphereShape3D_hwqd5")
+
+[node name="AudioStreamPlayer3D" parent="." index="1"]
+volume_db = -80.0
+
+[node name="HighlightRing" parent="." index="2" unique_id=124539545 instance=ExtResource("2_hwqd5")]

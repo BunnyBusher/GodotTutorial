@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d1lhq4o6f77h4"]
 
-[ext_resource type="Script" uid="uid://dgh0jurn7grs0" path="res://_/Feature/car_movement.gd" id="1_ibsuk"]
+[ext_resource type="Script" uid="uid://dgh0jurn7grs0" path="res://_/Feature/car_movement_simple.gd" id="1_ibsuk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ibsuk"]
 albedo_color = Color(0.15759787, 0.4981954, 0.29214275, 1)

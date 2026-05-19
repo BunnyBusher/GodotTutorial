@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://mw2k57msxjmq"]
+
+[ext_resource type="PackedScene" uid="uid://b7cm0x7a8vr1l" path="res://_/Levels/micro_bit_snap_zone.tscn" id="1_6rsy5"]
+[ext_resource type="ArrayMesh" uid="uid://dfwvieaagj7g0" path="res://_/Content/ks_4036_meshes/3d/body/ks_4036_body.obj" id="1_slgew"]
+[ext_resource type="Material" uid="uid://cn4in8seqgn5l" path="res://_/Content/ks_4036_meshes/3d/body/mat_ks_4036_body.tres" id="2_ic26o"]
+[ext_resource type="ArrayMesh" uid="uid://dyxmwr46idk40" path="res://_/Content/ks_4036_meshes/3d/wheel/ks_4036_wheel.obj" id="3_efff7"]
+[ext_resource type="ArrayMesh" uid="uid://dcp3drqm6juuu" path="res://_/Content/ks_4036_meshes/3d/top/ks_4036_top_platform.obj" id="3_rnw7u"]
+[ext_resource type="Material" uid="uid://d0uhahsnc7kwl" path="res://_/Content/ks_4036_meshes/3d/wheel/mat_ks_4036_wheel_black.tres" id="4_t0h6g"]
+[ext_resource type="Material" uid="uid://b8dso1a17k6o5" path="res://_/Content/ks_4036_meshes/3d/top/mat_ks_4036_platform.tres" id="4_ydifc"]
+[ext_resource type="ArrayMesh" uid="uid://cle2gnxktb1fd" path="res://_/Content/ks_4036_meshes/3d/led/ks4036_front_led.obj" id="7_6rsy5"]
+[ext_resource type="Script" uid="uid://doppqvfbw1jdg" path="res://_/Feature/local_rotation.gd" id="7_jaxm4"]
+[ext_resource type="Texture2D" uid="uid://tc28pq226ktx" path="res://_/Content/ks_4036_meshes/3d/led/ks4036_front_led_uv.png" id="8_jaxm4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jaxm4"]
+size = Vector3(0.8865967, 0.25610352, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yjqhu"]
+albedo_texture = ExtResource("8_jaxm4")
+
+[node name="ks4036" type="Node3D" unique_id=522311170]
+
+[node name="size" type="Node3D" parent="." unique_id=28440177]
+
+[node name="VehicleBody3D" type="VehicleBody3D" parent="size" unique_id=728384318]
+
+[node name="MicroBitSnapZone" parent="size/VehicleBody3D" unique_id=745712636 instance=ExtResource("1_6rsy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.027, -0.034)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="size/VehicleBody3D" unique_id=1392591648]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.00016183266, 0.011660911, -0.01573813)
+shape = SubResource("BoxShape3D_jaxm4")
+
+[node name="body" type="MeshInstance3D" parent="size/VehicleBody3D" unique_id=887799863]
+mesh = ExtResource("1_slgew")
+surface_material_override/0 = ExtResource("2_ic26o")
+
+[node name="top" type="MeshInstance3D" parent="size/VehicleBody3D" unique_id=148145861]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02494952, 0)
+mesh = ExtResource("3_rnw7u")
+surface_material_override/0 = ExtResource("4_ydifc")
+
+[node name="VehicleWheel3DLeft" type="VehicleWheel3D" parent="size/VehicleBody3D" unique_id=2097575900]
+use_as_traction = true
+wheel_radius = 0.05
+wheel_rest_length = 0.015
+
+[node name="wheelLeft" type="MeshInstance3D" parent="size/VehicleBody3D/VehicleWheel3DLeft" unique_id=2103973363]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026631474, 0, 0)
+mesh = ExtResource("3_efff7")
+surface_material_override/0 = ExtResource("4_t0h6g")
+script = ExtResource("7_jaxm4")
+
+[node name="VehicleWheel3DRight" type="VehicleWheel3D" parent="size/VehicleBody3D" unique_id=633630470]
+use_as_traction = true
+wheel_radius = 0.05
+wheel_rest_length = 0.015
+
+[node name="wheelRight" type="MeshInstance3D" parent="size/VehicleBody3D/VehicleWheel3DRight" unique_id=652072438]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0266315, 0, 0)
+mesh = ExtResource("3_efff7")
+surface_material_override/0 = ExtResource("4_t0h6g")
+script = ExtResource("7_jaxm4")
+
+[node name="ledRight" type="MeshInstance3D" parent="size/VehicleBody3D" unique_id=707108087]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0182169, 0.005406824, -0.046431944)
+mesh = ExtResource("7_6rsy5")
+surface_material_override/0 = SubResource("StandardMaterial3D_yjqhu")
+
+[node name="ledLeft" type="MeshInstance3D" parent="size/VehicleBody3D" unique_id=2101927644]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01821693, 0.005406824, -0.046431985)
+mesh = ExtResource("7_6rsy5")
+surface_material_override/0 = SubResource("StandardMaterial3D_yjqhu")

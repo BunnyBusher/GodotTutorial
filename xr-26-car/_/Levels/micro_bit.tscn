@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://ctnvfk4scv0fd"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_8vcsb"]
+[ext_resource type="ArrayMesh" uid="uid://b8j266buh42i5" path="res://_/Content/micro_bit_shape/3d/micro_bit_shape.obj" id="2_yxghr"]
+[ext_resource type="Material" uid="uid://c81g7nwtek3x3" path="res://_/Content/micro_bit_shape/3d/mat_micro_bit_shape.tres" id="3_4e1sh"]
+[ext_resource type="Script" uid="uid://b8waaso7b6bsr" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.gd" id="4_yxghr"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="5_ica4e"]
+[ext_resource type="Animation" uid="uid://nq3xh1olqipq" path="res://addons/godot-xr-tools/hands/animations/left/Grip Shaft.res" id="6_l03st"]
+[ext_resource type="Script" uid="uid://dvobm6vcfnqe8" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="7_5tvkq"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="8_5tvkq"]
+[ext_resource type="Animation" uid="uid://c8dghcftg1thx" path="res://addons/godot-xr-tools/hands/animations/right/Grip Shaft.res" id="9_dooxg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3qggu"]
+margin = 0.01
+size = Vector3(0.1, 0.08, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4e1sh"]
+flip_faces = true
+size = Vector3(0.055, 0.045, 0.005)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qggu"]
+albedo_color = Color(0.8889008, 0.8833981, 0, 1)
+
+[sub_resource type="Resource" id="Resource_dooxg"]
+script = ExtResource("7_5tvkq")
+closed_pose = ExtResource("6_l03st")
+metadata/_custom_type_script = "uid://dvobm6vcfnqe8"
+
+[sub_resource type="Resource" id="Resource_1gqot"]
+script = ExtResource("7_5tvkq")
+closed_pose = ExtResource("9_dooxg")
+metadata/_custom_type_script = "uid://dvobm6vcfnqe8"
+
+[node name="MicroBit" unique_id=98907541 groups=["MicroBit"] instance=ExtResource("1_8vcsb")]
+
+[node name="CollisionShape3D" parent="." index="0" groups=["MicroBit"]]
+shape = SubResource("BoxShape3D_3qggu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1" unique_id=665751986]
+mesh = ExtResource("2_yxghr")
+surface_material_override/0 = ExtResource("3_4e1sh")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="." index="2" unique_id=1267088305]
+script = ExtResource("4_yxghr")
+metadata/_custom_type_script = "uid://b8waaso7b6bsr"
+
+[node name="Highlighmesh" type="MeshInstance3D" parent="XRToolsHighlightRing" index="0" unique_id=1719594707]
+mesh = SubResource("BoxMesh_4e1sh")
+surface_material_override/0 = SubResource("StandardMaterial3D_3qggu")
+
+[node name="GrabPointHandLeft" parent="." index="3" unique_id=1450825745 instance=ExtResource("5_ica4e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024828989, 0.019596152, -0.04071105)
+hand_pose = SubResource("Resource_dooxg")
+
+[node name="GrabPointHandRight" parent="." index="4" unique_id=1770749311 instance=ExtResource("8_5tvkq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.024940602, 0.018705428, -0.041864514)
+hand_pose = SubResource("Resource_1gqot")
