@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://mw2k57msxjmq" path="res://_/Levels/ks_4036.tscn" id="4_ybhsj"]
 [ext_resource type="PackedScene" uid="uid://ctnvfk4scv0fd" path="res://_/Levels/micro_bit.tscn" id="5_6r06j"]
 [ext_resource type="Script" uid="uid://bl222of0t2agq" path="res://_/Feature/vehicle_wheel_3d_movement.gd" id="5_n0eod"]
+[ext_resource type="Script" uid="uid://hapg8r8t3mnh" path="res://_/Feature/vehicle_body_3d.gd" id="5_s4qry"]
 [ext_resource type="PackedScene" uid="uid://c0ty1x44qc0cf" path="res://_/Levels/player.tscn" id="5_ybhsj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xxej6"]
@@ -46,8 +47,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 
 [node name="VehicleBody3D" parent="ks4036/size" parent_id_path=PackedInt32Array(522311170, 28440177) index="0" unique_id=728384318]
 mass = 1.0
+script = ExtResource("5_s4qry")
+turn_torque = 0.1
 
 [node name="VehicleWheel3DLeft" parent="ks4036/size/VehicleBody3D" index="4" unique_id=2097575900]
+use_as_traction = false
 wheel_roll_influence = 0.5
 wheel_rest_length = 0.1
 wheel_friction_slip = 10.0
@@ -58,6 +62,7 @@ _acceleration = 750.0
 _degree_max_per_second = 1440.0
 
 [node name="VehicleWheel3DRight" parent="ks4036/size/VehicleBody3D" index="5" unique_id=633630470]
+use_as_traction = false
 wheel_roll_influence = 0.5
 wheel_rest_length = 0.1
 wheel_friction_slip = 10.0
@@ -72,8 +77,10 @@ _degree_max_per_second = 1440.0
 [node name="MicroBit" parent="." unique_id=98907541 instance=ExtResource("5_6r06j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15666106, -0.021298863, -0.010743305)
 
+[connection signal="on_left_hand_joystick_vertical_value" from="InputManager/InputXr" to="ks4036/size/VehicleBody3D" method="_get_left_wheel_input"]
 [connection signal="on_left_hand_joystick_vertical_value" from="InputManager/InputXr" to="ks4036/size/VehicleBody3D/VehicleWheel3DLeft" method="get_joystick_value"]
 [connection signal="on_left_hand_joystick_vertical_value" from="InputManager/InputXr" to="ks4036/size/VehicleBody3D/VehicleWheel3DLeft/wheelLeft" method="set_joystick_value"]
+[connection signal="on_right_hand_joystick_vertical_value" from="InputManager/InputXr" to="ks4036/size/VehicleBody3D" method="_get_right_wheel_input"]
 [connection signal="on_right_hand_joystick_vertical_value" from="InputManager/InputXr" to="ks4036/size/VehicleBody3D/VehicleWheel3DRight" method="get_joystick_value"]
 [connection signal="on_right_hand_joystick_vertical_value" from="InputManager/InputXr" to="ks4036/size/VehicleBody3D/VehicleWheel3DRight/wheelRight" method="set_joystick_value"]
 
