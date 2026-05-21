@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cvnbnjvu2i1e7"
 path.s3tc="res://.godot/imported/ks_4036_top_platform_uv_color.png-24a60c5633d303efb06d658ac5cb29aa.s3tc.ctex"
+path.etc2="res://.godot/imported/ks_4036_top_platform_uv_color.png-24a60c5633d303efb06d658ac5cb29aa.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://_/Content/ks_4036_meshes/3d/top/ks_4036_top_platform_uv_color.png"
-dest_files=["res://.godot/imported/ks_4036_top_platform_uv_color.png-24a60c5633d303efb06d658ac5cb29aa.s3tc.ctex"]
+dest_files=["res://.godot/imported/ks_4036_top_platform_uv_color.png-24a60c5633d303efb06d658ac5cb29aa.s3tc.ctex", "res://.godot/imported/ks_4036_top_platform_uv_color.png-24a60c5633d303efb06d658ac5cb29aa.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://tc28pq226ktx"
 path.s3tc="res://.godot/imported/ks4036_front_led_uv.png-c305b59865abb7d9aecc706c4cdcd7ca.s3tc.ctex"
+path.etc2="res://.godot/imported/ks4036_front_led_uv.png-c305b59865abb7d9aecc706c4cdcd7ca.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://_/Content/ks_4036_meshes/3d/led/ks4036_front_led_uv.png"
-dest_files=["res://.godot/imported/ks4036_front_led_uv.png-c305b59865abb7d9aecc706c4cdcd7ca.s3tc.ctex"]
+dest_files=["res://.godot/imported/ks4036_front_led_uv.png-c305b59865abb7d9aecc706c4cdcd7ca.s3tc.ctex", "res://.godot/imported/ks4036_front_led_uv.png-c305b59865abb7d9aecc706c4cdcd7ca.etc2.ctex"]
 
 [params]
 

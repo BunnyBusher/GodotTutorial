@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 	on_right_hand_joystick_vertical_value.emit(right_joystick_vertical_value)
 	on_left_hand_joystick.emit(left_joystick)
 	on_left_hand_joystick_vertical_value.emit(left_joystick_vertical_value)
-	#on_x_button_pressed.emit(x_button)
+	on_x_button_pressed.emit(x_button)
 	
 	
 func get_right_joystick_2d_value() -> Vector2:
@@ -61,6 +61,6 @@ func get_a_button_trigger() -> bool:
 		return false
 	
 	for name in ["ax_button"]:
-		if right_hand.is_button_pressed(name):
+		if left_hand.is_button_pressed(name):
 			return true
 	return false

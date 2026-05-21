@@ -9,20 +9,23 @@
 [ext_resource type="Script" uid="uid://hapg8r8t3mnh" path="res://_/Feature/vehicle_body_3d.gd" id="5_s4qry"]
 [ext_resource type="PackedScene" uid="uid://c0ty1x44qc0cf" path="res://_/Levels/player.tscn" id="5_ybhsj"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xxej6"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s4qry"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="Sky" id="Sky_y5hu6"]
-sky_material = SubResource("ProceduralSkyMaterial_xxej6")
+[sub_resource type="Sky" id="Sky_62roe"]
+sky_material = SubResource("ProceduralSkyMaterial_s4qry")
 
-[sub_resource type="Environment" id="Environment_1j2ya"]
+[sub_resource type="Environment" id="Environment_hum27"]
 background_mode = 2
-sky = SubResource("Sky_y5hu6")
+sky = SubResource("Sky_62roe")
 tonemap_mode = 2
 
 [node name="Node3D" type="Node3D" unique_id=1109199117]
 script = ExtResource("1_xxej6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1673318360]
+environment = SubResource("Environment_hum27")
 
 [node name="InputManager" parent="." unique_id=374932707 instance=ExtResource("2_1j2ya")]
 
@@ -32,9 +35,6 @@ right_hand = NodePath("../../player/XROrigin3D/XRController3D_right")
 
 [node name="InputKeyboard" parent="InputManager" index="1" unique_id=2073353538]
 is_enabled = false
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=7501566]
-environment = SubResource("Environment_1j2ya")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1769972077]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
@@ -55,8 +55,9 @@ use_as_traction = false
 wheel_roll_influence = 0.5
 wheel_rest_length = 0.1
 wheel_friction_slip = 10.0
+suspension_travel = 0.1
 script = ExtResource("5_n0eod")
-_acceleration = 750.0
+_acceleration = 50.0
 
 [node name="wheelLeft" parent="ks4036/size/VehicleBody3D/VehicleWheel3DLeft" index="0" unique_id=2103973363]
 _degree_max_per_second = 1440.0
@@ -66,8 +67,9 @@ use_as_traction = false
 wheel_roll_influence = 0.5
 wheel_rest_length = 0.1
 wheel_friction_slip = 10.0
+suspension_travel = 0.1
 script = ExtResource("5_n0eod")
-_acceleration = 750.0
+_acceleration = 50.0
 
 [node name="wheelRight" parent="ks4036/size/VehicleBody3D/VehicleWheel3DRight" index="0" unique_id=652072438]
 _degree_max_per_second = 1440.0
@@ -83,6 +85,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15666106, -0.021298863, -0
 [connection signal="on_right_hand_joystick_vertical_value" from="InputManager/InputXr" to="ks4036/size/VehicleBody3D" method="_get_right_wheel_input"]
 [connection signal="on_right_hand_joystick_vertical_value" from="InputManager/InputXr" to="ks4036/size/VehicleBody3D/VehicleWheel3DRight" method="get_joystick_value"]
 [connection signal="on_right_hand_joystick_vertical_value" from="InputManager/InputXr" to="ks4036/size/VehicleBody3D/VehicleWheel3DRight/wheelRight" method="set_joystick_value"]
+[connection signal="on_x_button_pressed" from="InputManager/InputXr" to="ks4036/size/VehicleBody3D" method="reset_position"]
 
 [editable path="InputManager"]
 [editable path="ks4036"]
